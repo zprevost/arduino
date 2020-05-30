@@ -37,9 +37,11 @@ byte val = 255;
 enum STATE {
   OFF,
   ON,
+  COLOR,
   RANDOM,
-  TEMP,
   MOVE,
+  TEMP,
+  XMAS,
 } state = OFF;
 
 void setup() {
@@ -64,16 +66,24 @@ void check_ir() {
         Serial.println("ON");
         break;
       case IR_KEY_2:
-        state = RANDOM;
-        Serial.println("RANDOM");
+        state = COLOR;
+        Serial.println("COLOR");
         break;
       case IR_KEY_3:
-        state = TEMP;
-        Serial.println("TEMP");
+        state = RANDOM;
+        Serial.println("RANDOM");
         break;
       case IR_KEY_4:
         state = MOVE;
         Serial.println("MOVE");
+        break;
+      case IR_KEY_5:
+        state = TEMP;
+        Serial.println("TEMP");
+        break;
+      case IR_KEY_6:
+        state = XMAS;
+        Serial.println("XMAS");
         break;
 
       case IR_KEY_VOL_UP:
@@ -101,10 +111,67 @@ void check_ir() {
   }
 }
 
+void check_serial() {
+  if (Serial.available()) {
+    switch (Serial.read()) {
+      case '0':
+        state = OFF;
+        Serial.println("OFF");
+        break;
+      case '1':
+        state = ON;
+        Serial.println("ON");
+        break;
+      case '2':
+        state = COLOR;
+        Serial.println("COLOR");
+        break;
+      case '3':
+        state = RANDOM;
+        Serial.println("RANDOM");
+        break;
+      case '4':
+        state = MOVE;
+        Serial.println("MOVE");
+        break;
+      case '5':
+        state = TEMP;
+        Serial.println("TEMP");
+        break;
+      case '6':
+        state = XMAS;
+        Serial.println("XMAS");
+        break;
+
+      case 'w':
+        val = min(val + 16, 255);
+        Serial.print("Val up to ");
+        Serial.println(val);
+        break;
+      case 's':
+        val = max(val - 16, 0);
+        Serial.print("Val down to ");
+        Serial.println(val);
+        break;
+      case 'a':
+        hue = (256 + hue + 16) % 256;
+        Serial.print("Hue up to ");
+        Serial.println(hue);
+        break;
+      case 'd':
+        hue = (256 + hue - 16) % 256;
+        Serial.print("Hue down to ");
+        Serial.println(hue);
+        break;
+    }
+  }
+}
+
 void smart_delay(unsigned long t) {
   const unsigned long stop_time = millis() + t;
   do {
     check_ir();
+    check_serial();
     delay(1);
   } while (millis() < stop_time);
 }
@@ -120,6 +187,13 @@ void loop() {
   }
 
   while (state == ON) {
+    for (int i = 0; i < NUM_LEDS; i++)
+      leds[i] = CRGB::White;
+    FastLED.show();
+    smart_delay(100);
+  }
+
+  while (state == COLOR) {
     for (int i = 0; i < NUM_LEDS; i++)
       leds[i] = CHSV(hue, sat, val);
     FastLED.show();
@@ -166,9 +240,13 @@ void loop() {
       leds[i + 1] = CHSV(hue, sat, val / 2);
       FastLED.show();
       smart_delay(100);
+      if (state != MOVE) break;
     }
+
+    if (state != MOVE) break;
+
     // Back
-    for (int i = NUM_LEDS - 2; i >= 1; i --) {
+    for (int i = NUM_LEDS - 2; i >= 1; i--) {
       for (int j = 0; j < NUM_LEDS; j++)
         leds[j] = CRGB::Black;
       leds[i] = CHSV(hue, sat, val);
@@ -176,7 +254,30 @@ void loop() {
       leds[i + 1] = CHSV(hue, sat, val / 2);
       FastLED.show();
       smart_delay(100);
+      if (state != MOVE) break;
     }
-
   }
+
+  while (state == XMAS) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 0)
+        leds[i] = CRGB::Red;
+      else
+        leds[i] = CRGB::Green;
+    }
+    FastLED.show();
+    smart_delay(1000);
+
+    if (state != XMAS) break;
+
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 0)
+        leds[i] = CRGB::Green;
+      else
+        leds[i] = CRGB::Red;
+    }
+    FastLED.show();
+    smart_delay(1000);
+  }
+
 }
