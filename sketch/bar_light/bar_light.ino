@@ -28,7 +28,7 @@ decode_results ir_results;
 
 // FOR LED lights
 #define LED_PIN 12
-#define NUM_LEDS 48
+#define NUM_LEDS 50
 CRGB leds[NUM_LEDS];
 byte hue = 125;
 byte sat = 255;
