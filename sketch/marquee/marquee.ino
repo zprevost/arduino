@@ -1,9 +1,10 @@
+#include <avr/pgmspace.h>
 #include <FastLED.h>
 
 #define DISP_HEIGHT 5 // Height of the physical display in pixels
 #define DISP_WIDTH 10 // Width of the physical display in pixels
 #define CHAR_WIDTH 5 // Width of each character in pixels
-#define REG_WIDTH 100 // Width of the display reg in pixels
+#define MARQ_WIDTH 200 // Width of the display reg in pixels
 
 // FOR LED lights
 #define LED_PIN 12
@@ -21,15 +22,64 @@ const byte led_grid[DISP_HEIGHT][DISP_WIDTH] = {
   {40, 41, 42, 43, 44, 45, 46, 47, 48, 49}
 };
 
-String char_mat_contents = "MISP";
+String char_mat_contents = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
 
-const byte char_mat[4][DISP_HEIGHT][CHAR_WIDTH] = {
-  { // M
-    {1, 0, 0, 0, 1},
-    {1, 1, 0, 1, 1},
-    {1, 0, 1, 0, 1},
-    {1, 0, 0, 0, 1},
-    {1, 0, 0, 0, 1},
+const byte char_mat[][DISP_HEIGHT][CHAR_WIDTH] PROGMEM = {
+  { // A
+    {0, 0, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+  },
+  { // B
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 0},
+  },
+  { // C
+    {0, 0, 1, 1, 1},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+    {0, 0, 1, 1, 1},
+  },
+  { // D
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 0},
+  },
+  { // E
+    {0, 1, 1, 1, 1},
+    {0, 1, 0, 0, 0},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 1, 1, 1},
+  },
+  { // F
+    {0, 1, 1, 1, 1},
+    {0, 1, 0, 0, 0},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+  },
+  { // G
+    {0, 0, 1, 1, 1},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 1, 1},
+    {0, 1, 0, 0, 1},
+    {0, 0, 1, 1, 1},
+  },
+  { // H
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
   },
   { // I
     {0, 1, 1, 1, 0},
@@ -38,37 +88,220 @@ const byte char_mat[4][DISP_HEIGHT][CHAR_WIDTH] = {
     {0, 0, 1, 0, 0},
     {0, 1, 1, 1, 0},
   },
+  { // J
+    {0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 0, 1, 1, 0},
+  },
+  { // K
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 0, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 0, 1},
+  },
+  { // L
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 1, 1, 0},
+  },
+  { // M
+    {1, 0, 0, 0, 1},
+    {1, 1, 0, 1, 1},
+    {1, 0, 1, 0, 1},
+    {1, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1},
+  },
+  { // N
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 0, 1},
+    {0, 1, 0, 1, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+  },
+  { // O
+    {0, 0, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 0, 1, 1, 0},
+  },
+  { // P
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+  },
+  { // Q
+    {0, 0, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 1, 1},
+    {0, 0, 1, 1, 1},
+  },
+  { // R
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 0, 1},
+  },
   { // S
+    {0, 0, 1, 1, 1},
+    {0, 1, 0, 0, 0},
+    {0, 0, 1, 1, 0},
+    {0, 0, 0, 0, 1},
+    {0, 1, 1, 1, 0},
+  },
+  { // T
+    {1, 1, 1, 1, 1},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+  },
+  { // U
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 0, 1, 1, 0},
+  },
+  { // V
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 0, 1, 0, 0},
+  },
+  { // W
+    {1, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1},
+    {1, 0, 1, 0, 1},
+    {0, 1, 0, 1, 0},
+  },
+  { // X
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 0, 1, 0, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+  },
+  { // Y
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+  },
+  { // Z
+    {0, 1, 1, 1, 1},
+    {0, 0, 0, 0, 1},
+    {0, 0, 0, 1, 0},
+    {0, 0, 1, 0, 0},
+    {0, 1, 1, 1, 1},
+  },
+  { // 0
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+  },
+  { // 1
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+  },
+  { // 2
+    {0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 0},
+    {0, 1, 1, 1, 0},
+  },
+  { // 3
+    {0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+  },
+  { // 4
+    {0, 1, 0, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 0, 0, 1, 0},
+  },
+  { // 5
     {0, 1, 1, 1, 0},
     {0, 1, 0, 0, 0},
     {0, 1, 1, 1, 0},
     {0, 0, 0, 1, 0},
     {0, 1, 1, 1, 0},
   },
-  { // P
+  { // 6
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 0, 0},
     {0, 1, 1, 1, 0},
     {0, 1, 0, 1, 0},
     {0, 1, 1, 1, 0},
-    {0, 1, 0, 0, 0},
-    {0, 1, 0, 0, 0},
+  },
+  { // 7
+    {0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 0, 0, 1, 0},
+  },
+  { // 8
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+  },
+  { // 9
+    {0, 1, 1, 1, 0},
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {0, 0, 0, 1, 0},
+    {0, 0, 0, 1, 0},
+  },
+  { // SPACE
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
   },
 };
 
-byte reg[DISP_HEIGHT][REG_WIDTH]; // Full register of characters to display
+byte marquee[DISP_HEIGHT][MARQ_WIDTH]; // Full marquee of characters to display
+int marq_width = 0;
 
-int fill_reg(String disp_str) {
+void fill_marquee(String disp_str) {
   int row, col; // Loop variables
 
   // Convert display string to uppercase
   disp_str.toUpperCase();
 
-  // Initialize reg
+  // Initialize marquee
   for (row = 0; row < DISP_HEIGHT; row++)
-    for (col = 0; col < REG_WIDTH; col++)
-      reg[row][col] = 0;
+    for (col = 0; col < MARQ_WIDTH; col++)
+      marquee[row][col] = 0;
 
-  // Fill reg with characters
-  int reg_col = 0;
+  // Fill marquee with characters
+  marq_width = 0;
 
   // For each character in the display string
   for (int i = 0; i < disp_str.length(); i++) {
@@ -81,35 +314,36 @@ int fill_reg(String disp_str) {
 
     for (col = 0; col < CHAR_WIDTH; col++) {
       for (row = 0; row < DISP_HEIGHT; row++) {
-        // Copy one pixel from character matrix to full display matrix
-        int reg_row = row;
-        reg[reg_row][reg_col] = char_mat[index][row][col];
+        // Copy one pixel from character matrix to marquee
+        int marq_row = row;
+        marquee[marq_row][marq_width] = pgm_read_byte_near(&char_mat[index][row][col]);
       }
-      reg_col++;
-      if (reg_col == REG_WIDTH)
-        return reg_col;
+      marq_width++;
+      if (marq_width == MARQ_WIDTH)
+        return;
     }
   }
 
-  return reg_col;
+  return;
 }
 
 void setup() {
+  FastLED.addLeds<WS2811, LED_PIN, RGB>(leds, NUM_LEDS);
   Serial.begin(9600);
   while (!Serial); // Wait for serial port to connect
   Serial.println("Ready");
 
-  // Fill the reg
-  int reg_col = fill_reg("mississippi");
-  Serial.print("Ended at reg_col: ");
-  Serial.print(reg_col - 1);
+  // Fill the marquee
+  fill_marquee("Houston Texas");
+  Serial.print("Ended at marq_width: ");
+  Serial.print(marq_width - 1);
   Serial.print(" of ");
-  Serial.println(REG_WIDTH - 1);
+  Serial.println(MARQ_WIDTH - 1);
 
-  // Print the reg
+  // Print the marquee to the serial port
   for (int row = 0; row < DISP_HEIGHT; row++) {
-    for (int col = 0; col < REG_WIDTH; col++) {
-      if (reg[row][col])
+    for (int col = 0; col < MARQ_WIDTH; col++) {
+      if (marquee[row][col])
         Serial.print("#");
       else
         Serial.print(" ");
@@ -119,5 +353,18 @@ void setup() {
 }
 
 void loop() {
-  delay(10);
+  for (int marq_col = 0; marq_col < MARQ_WIDTH - DISP_WIDTH; marq_col++) {
+    for (int row = 0; row < DISP_HEIGHT; row++) {
+      for (int col = 0; col < DISP_WIDTH; col++) {
+        if (marquee[row][marq_col + col])
+          leds[led_grid[row][col]] = CRGB::Green;
+        else
+          leds[led_grid[row][col]] = CRGB::Black;
+      }
+    }
+    FastLED.show();
+    delay(200);
+    if (marq_col == marq_width)
+      break;
+  }
 }
