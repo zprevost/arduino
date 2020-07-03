@@ -20,4 +20,4 @@ The LEDs are arranged in a grid pattern in the cardboard box. Below, there is a 
 ### Wiring  
 The electrical components are connected using a breadboard, but for a more permanent and durable project, they could be directly soldered together.  
 Wiring diagram of the arduino gridlight:  
-![alt text](https://github.com/zprevost/arduino/blob/master/sketch/gridlight_5x10/gridlight_wiring_diagram.png)
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/gridlight_5x10/gridlight_wiring_diagram.png" width="500" />
