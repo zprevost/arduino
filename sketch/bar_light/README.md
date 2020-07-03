@@ -15,9 +15,9 @@ The hardware consists of:
 * Yardstick
 * Plastic arduino case
 
-The WS2811 LEDs are attached in a line to the yardstick. Below, there is a diagram showing how the electrical components are connected:  
+The WS2811 LEDs are attached in a line to the yardstick. Below, there is a diagram showing how the electrical components are connected.  
 
 ### Wiring  
 The electrical components are connected using a breadboard, but for a more permanent and durable project, they could be directly soldered together.  
 Wiring diagram of the arduino bar light:  
-![alt text](https://github.com/zprevost/arduino/blob/master/sketch/bar_light/barlight_wiring_diagram.png)
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/bar_light/barlight_wiring_diagram.png" width="500" />
