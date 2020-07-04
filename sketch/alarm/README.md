@@ -1,5 +1,5 @@
 # Arduino Alarm  
-This is a simple alarm that beeps if anything gets within a certain distance of it.  
+This is an alarm that plays music if someone gets too close. To reduce false detections, the alarm must detect a presence for at least half a second.  
 
 
 ## Hardware  
