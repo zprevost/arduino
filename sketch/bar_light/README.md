@@ -19,5 +19,9 @@ The WS2811 LEDs are attached in a line to the yardstick. Below, there is a diagr
 
 ### Wiring  
 The electrical components are connected using a breadboard, but for a more permanent and durable project, they could be directly soldered together.  
+  
 Wiring diagram of the arduino bar light:  
-<img src="https://github.com/zprevost/arduino/blob/master/sketch/bar_light/barlight_wiring_diagram.png" width="500" />
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/bar_light/barlight_wiring_diagram.png" width="500" />   
+   
+Photo of the arduino bar light wiring:   
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/marquee/photo_arduino_wiring.jpg" width="400" />
