@@ -1,6 +1,8 @@
 # Arduino Alarm  
 This is an alarm that plays music if someone gets too close. To reduce false detections, the alarm must detect a presence for at least half a second.  
-
+  
+Photo of the alarm:  
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/alarm/alarm_photo.png" width="400"/>
 
 ## Hardware  
 The hardware consists of:  
