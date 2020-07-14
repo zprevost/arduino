@@ -15,9 +15,13 @@ The hardware consists of:
 + Cardboard box
 + Plastic arduino code  
 
-The LEDs are arranged in a grid pattern in the cardboard box.  Below, there is a diagram showing how the electrical components are connected.  
+The LEDs are arranged in a grid pattern in a cardboard box, as shown below:  
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/marquee/gridlight.JPG" width="400" />
 
 ### Wiring   
 The electrical components are connected using a breadboard, but for a more permanent and durable project, they could be directly soldered together.  
 Wiring diagram of the arduino gridlight:   
-<img src="https://github.com/zprevost/arduino/blob/master/sketch/marquee/marquee_wiring_diagram.png" width="500" />
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/marquee/marquee_wiring_diagram.png" width="500" />  
+
+Photo of the arduino wiring:  
+<img src="https://github.com/zprevost/arduino/blob/master/sketch/marquee/photo_arduino_wiring.jpg" width="400" />
