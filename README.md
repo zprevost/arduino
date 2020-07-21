@@ -12,6 +12,9 @@ I created a grid of LEDs that can be used for lighting, decoration, and displayi
   
 ## [Marquee](https://github.com/zprevost/arduino/tree/master/sketch/marquee)
 I used the gridlight to create a marquee that displays a scrolling message.  
+
+## [Flatbot](https://github.com/zprevost/arduino/tree/master/sketch/flatbot)
+I created a two-degree-of-freedom, planar robot that uses limit switches.
   
 ## [Robot Car](https://github.com/zprevost/arduino/tree/master/sketch/robot_car)
 I have an Arduino-controlled robot car and am modifying its code.
