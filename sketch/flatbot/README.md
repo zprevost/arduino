@@ -1,5 +1,5 @@
 # Flatbot
-This is a planar robot arm with two degrees of motion. It has limit switches that prevent it from moving too far.  
+This is a planar robot arm with two degrees of motion. It has limit switches that prevents it from moving too far.  
    
 ### Hardware
 * [Arduino](https://www.amazon.com/ELEGOO-Board-ATmega328P-ATMEGA16U2-Compliant/dp/B01EWOE0UU)
